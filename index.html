@@ -1,121 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#17345b">
-  <meta name="description" content="حكايتي - حوّل صورة طفلك إلى قصة وكراسة تلوين قابلة للطباعة.">
-  <title>حكايتي | كل طفل بطل حكايته</title>
+  <title>حكايتي – Hikayaty</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="حكايتي">
-      <span class="brand-mark">ح</span>
-      <span><strong>حكايتي</strong><small>HIKAYATY</small></span>
-    </a>
-    <nav>
-      <a href="#how">كيف يعمل؟</a>
-      <a href="#create">اصنع قصة</a>
-      <a href="#about">عن المشروع</a>
-    </nav>
-    <a class="nav-cta" href="#create">ابدأ الآن</a>
+    <a class="brand" href="#">حكايتي <span>✦</span></a>
+    <span class="tagline">صورتك… وخيالك بلا حدود 🎨</span>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">حكاية تشبه طفلك</span>
-        <h1>كل طفل<br><em>بطل حكايته!</em></h1>
-        <p>حوّل صورة طفلك إلى مغامرة ممتعة، وقصة مصوّرة أو كراسة تلوين تحتفظون بها وتطبعونها في أي وقت.</p>
-        <a class="primary-btn" href="#create">اصنع أول حكاية <span>←</span></a>
-        <div class="hero-note"><span class="spark">✦</span> قصة شخصية بلمسة من الخيال</div>
-      </div>
-      <div class="hero-art" aria-label="رسمة توضيحية لكتاب حكايات">
-        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
-        <div class="book">
-          <div class="book-page">
-            <span class="book-stars">✦ ✧ ✦</span>
-            <div class="book-kid">☺</div>
-            <strong>مغامرة<br>البطل الصغير</strong>
-            <small>حكاية لا تُنسى</small>
-          </div>
-        </div>
-        <div class="floating f-one">✦</div><div class="floating f-two">♡</div>
-        <div class="ground"></div>
-      </div>
+    <section class="intro">
+      <div class="spark">✦ ✧ ✦</div>
+      <h1>خلّي صورتك تتحول إلى <span>عالم كرتوني!</span></h1>
+      <p>ارفع صورة الطفل، واختر عدد الرسومات، وحضّر صفحات تلوين ممتعة تحتفظ بها وتطبعها.</p>
     </section>
 
-    <section class="section" id="how">
-      <div class="section-heading">
-        <span class="eyebrow">بكل سهولة</span>
-        <h2>من صورة إلى حكاية في خطوات</h2>
-        <p>تجربة بسيطة للأهل، ونتيجة مميزة للصغار.</p>
-      </div>
+    <section class="workspace">
       <div class="steps">
-        <article class="step-card"><span class="step-number">01</span><div class="step-icon">📷</div><h3>ارفع الصورة</h3><p>اختر صورة واضحة لطفلك ليكون بطل القصة.</p></article>
-        <article class="step-card"><span class="step-number">02</span><div class="step-icon">🎨</div><h3>اختر الشكل</h3><p>حدد أسلوب الرسوم ونوع المغامرة التي يحبها.</p></article>
-        <article class="step-card"><span class="step-number">03</span><div class="step-icon">📖</div><h3>جهّز الكراسة</h3><p>عاين القصة وصفحات التلوين قبل الطباعة.</p></article>
+        <div><b>١</b><span>ارفع الصورة</span></div>
+        <div><b>٢</b><span>اختر العدد</span></div>
+        <div><b>٣</b><span>جهّز الرسومات</span></div>
       </div>
-    </section>
 
-    <section class="creator-section" id="create">
-      <div class="creator-intro">
-        <span class="eyebrow">ابدأ مغامرتكم</span>
-        <h2>اصنع حكاية<br><em>خاصة بطفلك</em></h2>
-        <p>هذه نسخة تجريبية لواجهة المشروع. جرّب رفع صورة واختيار تفاصيل الكراسة.</p>
-        <div class="privacy-note">🔒 في هذه النسخة، تبقى الصورة داخل متصفحك ولا يتم رفعها إلى خادم.</div>
-      </div>
-      <form class="creator-card" id="storyForm">
-        <div class="form-title"><span>✨</span><div><h3>تفاصيل الحكاية</h3><p>املأ البيانات الأساسية للبدء</p></div></div>
-        <label class="field-label" for="childName">اسم الطفل</label>
-        <input id="childName" type="text" maxlength="24" placeholder="مثلاً: لجين" required>
-        <label class="field-label" for="childAge">عمر الطفل</label>
-        <select id="childAge"><option>3 - 5 سنوات</option><option selected>6 - 8 سنوات</option><option>9 - 12 سنة</option></select>
-        <label class="field-label">صورة الطفل</label>
-        <label class="upload-box" for="childPhoto" id="uploadBox">
-          <span class="upload-icon">＋</span><strong>اضغط لاختيار صورة</strong><small>PNG أو JPG — يفضّل صورة واضحة للوجه</small>
-          <input id="childPhoto" type="file" accept="image/png,image/jpeg,image/webp" hidden>
-          <img id="photoPreview" alt="معاينة صورة الطفل">
-        </label>
-        <label class="field-label" for="artStyle">شكل الرسوم</label>
-        <select id="artStyle"><option>كرتوني لطيف</option><option>رسوم قصص يدوية</option><option>أنيمي</option><option>خطوط أبيض وأسود للتلوين</option></select>
-        <label class="field-label" for="storyTheme">موضوع القصة</label>
-        <select id="storyTheme"><option>مغامرة في الغابة</option><option>رحلة إلى الفضاء</option><option>كنز أعماق البحر</option><option>مساعدة الحيوانات</option><option>يوم في المزرعة</option></select>
-        <label class="field-label" for="pageCount">عدد الصفحات</label>
-        <select id="pageCount"><option value="6">6 صفحات</option><option value="8">8 صفحات</option><option value="10">10 صفحات</option></select>
-        <button class="primary-btn full" type="submit">إنشاء معاينة تجريبية <span>←</span></button>
-        <p class="form-hint">إنشاء الصور بالذكاء الاصطناعي وتصدير PDF سيتم ربطهما في مرحلة لاحقة.</p>
-      </form>
-    </section>
+      <label class="upload-box" for="childPhoto">
+        <span class="upload-icon">📷</span>
+        <strong>اضغط لاختيار صورة الطفل</strong>
+        <small>يفضل صورة واضحة يظهر فيها الوجه جيداً</small>
+        <span class="upload-action">اختيار صورة</span>
+      </label>
+      <input id="childPhoto" type="file" accept="image/png,image/jpeg,image/webp">
 
-    <section class="preview-section" id="preview" hidden>
-      <div class="section-heading">
-        <span class="eyebrow">معاينة أولية</span>
-        <h2 id="previewTitle">حكايتكم تبدأ هنا</h2>
-        <p id="previewDescription"></p>
+      <div class="preview" id="preview" hidden>
+        <img id="photoPreview" alt="معاينة صورة الطفل">
+        <div><strong>تم اختيار الصورة</strong><small id="photoName"></small></div>
+        <button id="removePhoto" class="text-button" type="button">تغيير الصورة</button>
       </div>
-      <div class="preview-layout">
-        <div class="preview-cover">
-          <img id="coverPhoto" alt="صورة بطل الحكاية">
-          <div><small>حكايتي تقدم لكم</small><h3 id="coverName"></h3><strong id="coverTheme"></strong></div>
-        </div>
-        <div class="preview-info">
-          <h3>مخطط الكراسة</h3>
-          <ol id="pageOutline"></ol>
-          <button class="secondary-btn" onclick="window.print()">طباعة هذه المعاينة</button>
-          <p class="form-hint">هذه معاينة تنظيمية وليست صفحات القصة النهائية المولّدة بالذكاء الاصطناعي.</p>
+
+      <div class="options">
+        <h2>كم رسمة تريد؟</h2>
+        <div class="choice-row">
+          <button class="count-choice selected" type="button" data-count="6">٦ رسومات</button>
+          <button class="count-choice" type="button" data-count="9">٩ رسومات</button>
         </div>
       </div>
-    </section>
 
-    <section class="about-section" id="about">
-      <div><span class="eyebrow">حكايتي</span><h2>ذكريات صغيرة<br><em>تبقى لسنوات</em></h2></div>
-      <p>نؤمن أن أجمل القصص هي التي يجد الطفل نفسه داخلها. نعمل على تطوير تجربة تحول الخيال إلى كراسة شخصية قابلة للحفظ والطباعة.</p>
+      <button id="createButton" class="create-button" type="button" disabled>✨ جهّز رسوماتي</button>
+      <p class="privacy">🔒 الصورة تستخدم في تجهيز الرسومات فقط. لا تنشر صور الأطفال دون إذن ولي الأمر.</p>
+
+      <section id="results" class="results" hidden>
+        <h2>معرض حكايتي 🌈</h2>
+        <p>هذه معاينة لتنوع الأفكار التي سننشئها من صورة الطفل.</p>
+        <div id="resultGrid" class="result-grid"></div>
+        <div class="result-actions">
+          <button type="button" id="printButton" class="secondary-button">طباعة المعاينة</button>
+        </div>
+        <p class="prototype-note">تنبيه: هذه نسخة واجهة أولية. التوليد الحقيقي بالذكاء الاصطناعي وتنزيل ملف PDF سيُفعّلان بعد ربط خدمة توليد الصور.</p>
+      </section>
     </section>
   </main>
-
-  <footer><a class="brand" href="#"><span class="brand-mark">ح</span><span><strong>حكايتي</strong><small>HIKAYATY</small></span></a><p>كل طفل بطل حكايته © <span id="year"></span></p></footer>
+  <footer>حكايتي – Hikayaty <span>♥</span></footer>
   <script src="script.js"></script>
 </body>
 </html>

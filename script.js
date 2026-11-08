@@ -1,57 +1,77 @@
 const photoInput = document.getElementById('childPhoto');
-const photoPreview = document.getElementById('photoPreview');
-const uploadBox = document.getElementById('uploadBox');
-let photoUrl = '';
+const preview = document.getElementById('preview');
+const previewImage = document.getElementById('photoPreview');
+const photoName = document.getElementById('photoName');
+const createButton = document.getElementById('createButton');
+const results = document.getElementById('results');
+let selectedCount = 6;
+let selectedPhotoUrl = null;
 
 photoInput.addEventListener('change', () => {
   const file = photoInput.files && photoInput.files[0];
   if (!file) return;
-  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-    alert('يرجى اختيار صورة بصيغة JPG أو PNG أو WEBP.');
+  if (!file.type.startsWith('image/')) {
+    alert('من فضلك اختر ملف صورة صالحاً.');
     photoInput.value = '';
     return;
   }
-  if (photoUrl) URL.revokeObjectURL(photoUrl);
-  photoUrl = URL.createObjectURL(file);
-  photoPreview.src = photoUrl;
-  photoPreview.style.display = 'block';
-  uploadBox.querySelector('.upload-icon').textContent = '✓';
-  uploadBox.querySelector('strong').textContent = 'تم اختيار الصورة — اضغط للتغيير';
-});
-
-document.getElementById('storyForm').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const name = document.getElementById('childName').value.trim();
-  const theme = document.getElementById('storyTheme').value;
-  const pages = Number(document.getElementById('pageCount').value);
-  if (!name) return alert('اكتب اسم الطفل أولاً.');
-  if (!photoInput.files.length) return alert('اختر صورة الطفل أولاً.');
-
-  document.getElementById('previewTitle').textContent = `حكاية ${name}`;
-  document.getElementById('previewDescription').textContent =
-    `موضوع المغامرة: ${theme} — عدد الصفحات: ${pages}.`;
-  document.getElementById('coverName').textContent = name;
-  document.getElementById('coverTheme').textContent = theme;
-  document.getElementById('coverPhoto').src = photoUrl;
-
-  const outline = document.getElementById('pageOutline');
-  const pageNames = [
-    'الغلاف: تقديم بطل الحكاية',
-    'بداية المغامرة والتعرف على المكان',
-    'ظهور التحدي أو المشكلة',
-    'محاولة البطل إيجاد الحل',
-    'مساعدة صديق أو اكتشاف جديد',
-    'النهاية السعيدة والعبرة'
-  ];
-  outline.innerHTML = '';
-  for (let i = 0; i < pages; i++) {
-    const li = document.createElement('li');
-    li.textContent = pageNames[i] || `مشهد إضافي من مغامرة ${name}`;
-    outline.appendChild(li);
-  }
-  const preview = document.getElementById('preview');
+  if (selectedPhotoUrl) URL.revokeObjectURL(selectedPhotoUrl);
+  selectedPhotoUrl = URL.createObjectURL(file);
+  previewImage.src = selectedPhotoUrl;
+  photoName.textContent = file.name;
   preview.hidden = false;
-  preview.scrollIntoView({ behavior: 'smooth' });
+  createButton.disabled = false;
+  results.hidden = true;
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('removePhoto').addEventListener('click', () => {
+  photoInput.value = '';
+  preview.hidden = true;
+  createButton.disabled = true;
+  results.hidden = true;
+  if (selectedPhotoUrl) URL.revokeObjectURL(selectedPhotoUrl);
+  selectedPhotoUrl = null;
+});
+
+document.querySelectorAll('.count-choice').forEach(button => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.count-choice').forEach(item => item.classList.remove('selected'));
+    button.classList.add('selected');
+    selectedCount = Number(button.dataset.count);
+  });
+});
+
+const ideas = [
+  ['بطل خارق','شخصية كرتونية ملونة','🦸'],
+  ['طبيب صغير','شخصية كرتونية ملونة','🩺'],
+  ['رائد فضاء','شخصية كرتونية ملونة','🚀'],
+  ['لاعب كرة','صفحة تلوين','⚽'],
+  ['مغامر صغير','صفحة تلوين','🧭'],
+  ['فنان مبدع','صفحة تلوين','🎨'],
+  ['قائد طائرة','صفحة تلوين','✈️'],
+  ['مستكشف الطبيعة','صفحة تلوين','🌳'],
+  ['فارس شجاع','صفحة تلوين','🏰']
+];
+
+createButton.addEventListener('click', () => {
+  if (!selectedPhotoUrl) return;
+  const grid = document.getElementById('resultGrid');
+  grid.innerHTML = '';
+  ideas.slice(0, selectedCount).forEach((idea, index) => {
+    const card = document.createElement('article');
+    card.className = 'result-card';
+    const image = document.createElement('img');
+    image.src = selectedPhotoUrl;
+    image.alt = 'صورة الطفل المختارة';
+    const title = document.createElement('strong');
+    title.textContent = idea[0];
+    const detail = document.createElement('small');
+    detail.textContent = idea[1] + ' · فكرة رقم ' + (index + 1);
+    card.append(image, title, detail);
+    grid.appendChild(card);
+  });
+  results.hidden = false;
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.getElementById('printButton').addEventListener('click', () => window.print());
