@@ -78,3 +78,20 @@ footer{text-align:center;padding:18px;color:#9b94aa;font-size:12px}
   .book-page{page-break-inside:avoid;box-shadow:none;border:1px solid #ccc}
   .book-page:nth-child(2n){page-break-after:always}
 }
+/* تنسيق الأشكال الكرتونية الجديدة (الإيموجي) */
+.emoji-shape {
+  font-size: clamp(50px, 12vw, 80px);
+  line-height: 1;
+  filter: grayscale(100%) contrast(200%) brightness(1.2); /* تحويل الإيموجي لرسم تخطيطي */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.page-scene .emoji-shape {
+  font-size: 180px;
+}
