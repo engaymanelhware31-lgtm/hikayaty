@@ -16,14 +16,14 @@
     <section class="intro">
       <div class="spark">✦ ✧ ✦</div>
       <h1>خلّي صورتك تتحول إلى <span>عالم كرتوني!</span></h1>
-      <p>ارفع صورة الطفل، واختر عدد الرسومات، وحضّر صفحات تلوين ممتعة تحتفظ بها وتطبعها.</p>
+      <p>ارفع صورة الطفل، اختر حتى 8 أشكال من 20 شكلًا كرتونيًا، وحضّر كتابًا ممتعًا للطباعة والتلوين.</p>
     </section>
 
     <section class="workspace">
       <div class="steps">
         <div><b>١</b><span>ارفع الصورة</span></div>
-        <div><b>٢</b><span>اختر العدد</span></div>
-        <div><b>٣</b><span>جهّز الرسومات</span></div>
+        <div><b>٢</b><span>اختر الأشكال</span></div>
+        <div><b>٣</b><span>اطبع الكتاب</span></div>
       </div>
 
       <label class="upload-box" for="childPhoto">
@@ -41,24 +41,24 @@
       </div>
 
       <div class="options">
-        <h2>كم رسمة تريد؟</h2>
-        <div class="choice-row">
-          <button class="count-choice selected" type="button" data-count="6">٦ رسومات</button>
-          <button class="count-choice" type="button" data-count="9">٩ رسومات</button>
+        <div class="options-header">
+          <h2>اختر أشكال الكتاب</h2>
+          <span class="selection-count" id="selectionCount">0 / 8</span>
         </div>
+        <p class="picker-hint" id="pickerHint">اختر حتى 8 أشكال من 20 شكلًا. سيصبح كل شكل صفحة في الكتاب.</p>
+        <div class="shape-picker" id="shapePicker"></div>
       </div>
 
-      <button id="createButton" class="create-button" type="button" disabled>✨ جهّز رسوماتي</button>
-      <p class="privacy">🔒 الصورة تستخدم في تجهيز الرسومات فقط. لا تنشر صور الأطفال دون إذن ولي الأمر.</p>
+      <button id="createButton" class="create-button" type="button" disabled>✨ جهّز كتابي</button>
+      <p class="privacy">🔒 الصورة تستخدم في تجهيز الكتاب فقط. لا تنشر صور الأطفال دون إذن ولي الأمر.</p>
 
       <section id="results" class="results" hidden>
-        <h2>معرض حكايتي 🌈</h2>
-        <p>هذه معاينة لتنوع الأفكار التي سننشئها من صورة الطفل.</p>
+        <h2>كتاب حكايتي 🌈</h2>
+        <p>هذه صفحات كتابك. اضغط طباعة لحفظ الكتاب أو طباعته.</p>
         <div id="resultGrid" class="result-grid"></div>
         <div class="result-actions">
-          <button type="button" id="printButton" class="secondary-button">طباعة المعاينة</button>
+          <button type="button" id="printButton" class="secondary-button">🖨️ طباعة الكتاب</button>
         </div>
-        <p class="prototype-note">تنبيه: هذه نسخة واجهة أولية. التوليد الحقيقي بالذكاء الاصطناعي وتنزيل ملف PDF سيُفعّلان بعد ربط خدمة توليد الصور.</p>
       </section>
     </section>
   </main>
