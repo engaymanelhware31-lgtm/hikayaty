@@ -1,68 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>حكايتي – Hikayaty</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6d4aff">
+  <title>حكايتي | اصنع قصة طفلك</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#">حكايتي <span>✦</span></a>
-    <span class="tagline">صورتك… وخيالك بلا حدود 🎨</span>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="حكايتي">
+      <span class="brand-mark">ح</span><span>حكايتي</span>
+    </a>
+    <span class="header-note">كل طفل بطل حكايته ✨</span>
   </header>
 
   <main>
-    <section class="intro">
-      <div class="spark">✦ ✧ ✦</div>
-      <h1>خلّي صورتك تتحول إلى <span>عالم كرتوني!</span></h1>
-      <p>ارفع صورة الطفل، اختر حتى 8 أشكال من 20 شكلًا كرتونيًا، وحضّر كتابًا ممتعًا للطباعة والتلوين.</p>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">قصة لا تشبه إلا طفلك</span>
+        <h1>حوّل صورة طفلك<br><em>إلى حكاية جميلة!</em></h1>
+        <p>اكتب اسمه واختر عالمه المفضل، وشاهد معاينة قصة مصوّرة ونسخة تلوين جاهزة للطباعة.</p>
+        <a class="primary-link" href="#creator">ابدأ صنع الحكاية <span>←</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun">☀️</div><div class="cloud cloud-one">☁️</div>
+        <div class="book-illustration"><span>📖</span><b>حكايتي</b><small>أنا بطل القصة!</small></div>
+        <div class="star star-one">✦</div><div class="star star-two">✧</div>
+      </div>
     </section>
 
-    <section class="workspace">
-      <div class="steps">
-        <div><b>١</b><span>ارفع الصورة</span></div>
-        <div><b>٢</b><span>اختر الأشكال</span></div>
-        <div><b>٣</b><span>اطبع الكتاب</span></div>
+    <section class="creator section" id="creator">
+      <div class="section-heading">
+        <span class="step-label">اصنع كتابك في خطوات بسيطة</span>
+        <h2>لنبدأ الحكاية</h2>
+        <p>املأ التفاصيل، ثم اضغط على إنشاء المعاينة.</p>
       </div>
 
-      <label class="upload-box" for="childPhoto">
-        <span class="upload-icon">📷</span>
-        <strong>اضغط لاختيار صورة الطفل</strong>
-        <small>يفضل صورة واضحة يظهر فيها الوجه جيداً</small>
-        <span class="upload-action">اختيار صورة</span>
-      </label>
-      <input id="childPhoto" type="file" accept="image/png,image/jpeg,image/webp">
-
-      <div class="preview" id="preview" hidden>
-        <img id="photoPreview" alt="معاينة صورة الطفل">
-        <div><strong>تم اختيار الصورة</strong><small id="photoName"></small></div>
-        <button id="removePhoto" class="text-button" type="button">تغيير الصورة</button>
-      </div>
-
-      <div class="options">
-        <div class="options-header">
-          <h2>اختر أشكال الكتاب</h2>
-          <span class="selection-count" id="selectionCount">0 / 8</span>
+      <form id="story-form" class="form-card">
+        <div class="form-grid">
+          <label class="field">
+            <span>اسم الطفل</span>
+            <input id="child-name" type="text" maxlength="24" placeholder="مثال: آدم" required>
+          </label>
+          <label class="field">
+            <span>العمر</span>
+            <select id="child-age">
+              <option value="3">3–4 سنوات</option><option value="5" selected>5–6 سنوات</option>
+              <option value="7">7–8 سنوات</option><option value="9">9–10 سنوات</option>
+            </select>
+          </label>
         </div>
-        <p class="picker-hint" id="pickerHint">اختر حتى 8 أشكال من 20 شكلًا. سيصبح كل شكل صفحة في الكتاب.</p>
-        <div class="shape-picker" id="shapePicker"></div>
-      </div>
 
-      <button id="createButton" class="create-button" type="button" disabled>✨ جهّز كتابي</button>
-      <p class="privacy">🔒 الصورة تستخدم في تجهيز الكتاب فقط. لا تنشر صور الأطفال دون إذن ولي الأمر.</p>
+        <label class="field upload-field">
+          <span>صورة الطفل</span>
+          <input id="child-photo" type="file" accept="image/*" required>
+          <span class="upload-box"><span class="upload-icon">📷</span><b>اضغط لاختيار صورة</b><small>يفضل صورة واضحة للوجه</small></span>
+          <img id="photo-preview" alt="معاينة صورة الطفل" hidden>
+        </label>
 
-      <section id="results" class="results" hidden>
-        <h2>كتاب حكايتي 🌈</h2>
-        <p>هذه صفحات كتابك. اضغط طباعة لحفظ الكتاب أو طباعته.</p>
-        <div id="resultGrid" class="result-grid"></div>
-        <div class="result-actions">
-          <button type="button" id="printButton" class="secondary-button">🖨️ طباعة الكتاب</button>
+        <div class="field">
+          <span>اختر عالم القصة</span>
+          <div class="theme-grid" id="theme-options">
+            <label class="theme-option"><input type="radio" name="theme" value="الفضاء" checked><span>🚀</span><b>مغامرة الفضاء</b></label>
+            <label class="theme-option"><input type="radio" name="theme" value="الغابة"><span>🦁</span><b>سر الغابة</b></label>
+            <label class="theme-option"><input type="radio" name="theme" value="البحر"><span>🐳</span><b>عالم البحار</b></label>
+            <label class="theme-option"><input type="radio" name="theme" value="القصر"><span>🏰</span><b>الأمير الشجاع</b></label>
+            <label class="theme-option"><input type="radio" name="theme" value="الديناصورات"><span>🦕</span><b>زمن الديناصورات</b></label>
+            <label class="theme-option"><input type="radio" name="theme" value="السحر"><span>🪄</span><b>الغابة السحرية</b></label>
+          </div>
         </div>
-      </section>
+
+        <div class="form-grid">
+          <label class="field">
+            <span>نوع الكتاب</span>
+            <select id="book-type">
+              <option value="story">قصة مصوّرة</option>
+              <option value="coloring">كتاب تلوين</option>
+              <option value="both" selected>قصة + كتاب تلوين</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>لغة القصة</span>
+            <select id="story-language"><option value="ar">العربية</option><option value="en">English</option></select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>معلومة تحب إضافتها للقصة (اختياري)</span>
+          <input id="extra-detail" type="text" maxlength="120" placeholder="مثلاً: يحب مساعدة أصدقائه">
+        </label>
+        <button class="primary-button" id="create-button" type="submit">✨ أنشئ معاينة حكايتي</button>
+        <p class="privacy-note">🔒 الصورة تتم معالجتها داخل متصفحك في هذه النسخة التجريبية، ولا تُرفع إلى خادم.</p>
+      </form>
+    </section>
+
+    <section id="result" class="result-section" hidden>
+      <div class="result-heading">
+        <div><span class="step-label">المعاينة جاهزة</span><h2>حكاية <span id="result-name"></span></h2></div>
+        <div class="result-actions"><button id="print-button" class="primary-button">🖨️ طباعة / حفظ PDF</button><button id="edit-button" class="secondary-button">تعديل التفاصيل</button></div>
+      </div>
+      <p class="preview-disclaimer">هذه معاينة أولية تُنشأ داخل المتصفح بقوالب قصصية ورسمة تلوين من الصورة. لا تمثل بعدُ رسومات ذكاء اصطناعي مخصصة.</p>
+      <div id="book-preview" class="book-preview"></div>
+    </section>
+
+    <section class="how section">
+      <div class="section-heading"><span class="step-label">بكل بساطة</span><h2>كيف تعمل حكايتي؟</h2></div>
+      <div class="how-grid">
+        <article><span>📸</span><h3>١. أضف الصورة</h3><p>اختر صورة طفلك وأدخل اسمه.</p></article>
+        <article><span>🌈</span><h3>٢. اختر المغامرة</h3><p>حدد العالم الذي يحبه طفلك.</p></article>
+        <article><span>📚</span><h3>٣. اطبع الحكاية</h3><p>عاين الصفحات واحفظها PDF من نافذة الطباعة.</p></article>
+      </div>
     </section>
   </main>
-  <footer>حكايتي – Hikayaty <span>♥</span></footer>
+
+  <footer><b>حكايتي – Hikayaty</b><span>كل طفل يستحق أن يكون بطل قصته 💜</span></footer>
   <script src="script.js"></script>
 </body>
 </html>
