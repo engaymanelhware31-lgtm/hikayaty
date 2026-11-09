@@ -8,49 +8,170 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
-    .eight-grid {
+    /* =========================================
+       أنماط قسم الطباعة (A4 Portrait - 3x3)
+       ========================================= */
+    .print-grid-3x3 {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
       margin-top: 20px;
+      width: 100%;
+      max-width: 794px; /* 210mm تقريباً */
+      aspect-ratio: 210 / 297; /* نسبة A4 */
+      margin-left: auto;
+      margin-right: auto;
     }
-    .eight-grid .card {
-      background: #f4f2fa;
-      border: 2px dashed #d1c4e9;
-      border-radius: 16px;
-      padding: 10px;
+
+    .print-frame {
+      background: #f9f9f9;
+      border: 2px dashed #c4b5e6;
+      border-radius: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-    }
-    .eight-grid .card-header {
-      background: #ece4ff;
-      color: #6d4aff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 4px 16px;
-      border-radius: 30px;
-    }
-    .eight-grid .img-space {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #fff;
-      border-radius: 12px;
+      justify-content: center;
       overflow: hidden;
-      border: 1px solid #d1c4e9;
+      position: relative;
+      padding: 5px;
+      text-align: center;
     }
-    
-    /* 🌟 هذا هو السطر السحري الذي يحول الصورة إلى أبيض وأسود */
-    .eight-grid .img-space img {
+
+    .print-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(100%) contrast(1.1); 
+      border-radius: 6px;
+      /* تحويل الصورة لأبيض وأسود للتلوين */
+      filter: grayscale(100%) contrast(1.2); 
     }
-    
-    @media (max-width: 900px) {
-      .eight-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .print-frame .empty-text {
+      color: #aaa;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .print-frame .empty-text span {
+      font-size: 1.5rem;
+    }
+
+    .frame-number {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(109, 74, 255, 0.1);
+      color: #6d4aff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    /* شبكة معاينة الصور المصغرة (التي تم اختيارها) */
+    .preview-thumbnails {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+      justify-content: center;
+    }
+    .preview-thumbnails img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #6d4aff;
+      filter: grayscale(100%); /* تظهر أبيض وأسود للمعاينة */
+    }
+
+    .number-input-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .number-input-group input {
+      width: 80px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* =========================================
+       إعدادات الطباعة A4
+       ========================================= */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+
+      body {
+        background: #fff !important;
+        margin: 0;
+        padding: 0;
+      }
+
+      header.site-header, 
+      .hero, 
+      .how, 
+      footer,
+      #creator,
+      .result-heading,
+      .preview-disclaimer,
+      .result-actions {
+        display: none !important;
+      }
+
+      #result {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #book-preview {
+        margin: 0;
+        padding: 0;
+      }
+
+      .print-grid-3x3 {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        gap: 8mm !important; 
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 277mm !important; 
+        box-shadow: none;
+      }
+
+      .print-frame {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        border-radius: 8px;
+        page-break-inside: avoid;
+      }
+
+      .frame-number {
+        color: #000 !important;
+        background: transparent !important;
+      }
+
+      .print-frame .empty-text {
+        color: #000 !important;
+      }
     }
   </style>
 </head>
@@ -99,11 +220,13 @@
           </label>
         </div>
 
+        <!-- ✅ تم إضافة multiple للسماح باختيار عدة صور -->
         <label class="field upload-field">
-          <span>صورة الطفل</span>
-          <input id="child-photo" type="file" accept="image/*" required>
-          <span class="upload-box"><span class="upload-icon">📷</span><b>اضغط لاختيار صورة</b><small>يفضل صورة واضحة للوجه</small></span>
-          <img id="photo-preview" alt="معاينة صورة الطفل" hidden>
+          <span>صور الطفل (يمكنك اختيار حتى 9 صور)</span>
+          <input id="child-photo" type="file" accept="image/*" multiple required>
+          <span class="upload-box"><span class="upload-icon">📷</span><b>اضغط لاختيار الصور</b><small>حدد صورة واحدة أو عدة صور للتلوين</small></span>
+          <!-- حاوية لعرض الصور المصغرة التي تم اختيارها -->
+          <div id="thumbnails-container" class="preview-thumbnails"></div>
         </label>
 
         <div class="field">
@@ -138,18 +261,20 @@
           <input id="extra-detail" type="text" maxlength="120" placeholder="مثلاً: يحب مساعدة أصدقائه">
         </label>
         <button class="primary-button" id="create-button" type="submit">✨ أنشئ معاينة حكايتي</button>
-        <p class="privacy-note">🔒 الصورة تتم معالجتها داخل متصفحك في هذه النسخة التجريبية، ولا تُرفع إلى خادم.</p>
+        <p class="privacy-note">🔒 الصور تتم معالجتها داخل متصفحك في هذه النسخة التجريبية، ولا تُرفع إلى خادم.</p>
       </form>
     </section>
 
     <section id="result" class="result-section" hidden>
       <div class="result-heading">
         <div><span class="step-label">المعاينة جاهزة</span><h2>حكاية <span id="result-name"></span></h2></div>
-        <div class="result-actions"><button id="print-button" class="primary-button">🖨️ طباعة / حفظ PDF</button><button id="edit-button" class="secondary-button">تعديل التفاصيل</button></div>
+        <div class="result-actions">
+          <button id="print-button" class="primary-button">🖨️ طباعة / حفظ PDF</button>
+          <button id="edit-button" class="secondary-button">تعديل التفاصيل</button>
+        </div>
       </div>
       <p class="preview-disclaimer">هذه معاينة أولية تُنشأ داخل المتصفح بقوالب قصصية ورسمة تلوين من الصورة. لا تمثل بعدُ رسومات ذكاء اصطناعي مخصصة.</p>
       
-      <!-- سيتم إدراج 8 نسخ الصور هنا -->
       <div id="book-preview" class="book-preview"></div>
     </section>
 
@@ -169,7 +294,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('story-form');
       const photoInput = document.getElementById('child-photo');
-      const photoPreview = document.getElementById('photo-preview');
+      const thumbnailsContainer = document.getElementById('thumbnails-container');
       const resultSection = document.getElementById('result');
       const resultName = document.getElementById('result-name');
       const bookPreview = document.getElementById('book-preview');
@@ -177,50 +302,70 @@
       const editBtn = document.getElementById('edit-button');
       const nameInput = document.getElementById('child-name');
 
-      let currentImageDataUrl = null;
+      let uploadedImages = []; // مصفوفة لتخزين روابط الصور المرفوعة
 
-      // 1. معاينة الصورة الصغيرة عند اختيارها
+      // 1. قراءة الصور المتعددة وعرضها كمعاينة مصغرة
       photoInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
+        uploadedImages = [];
+        thumbnailsContainer.innerHTML = ''; // مسح المعاينة القديمة
+
+        const files = Array.from(e.target.files).slice(0, 9); // الحد الأقصى 9 صور
+
+        if (files.length === 0) return;
+
+        files.forEach((file) => {
           const reader = new FileReader();
           reader.onload = function(event) {
-            currentImageDataUrl = event.target.result;
-            photoPreview.src = currentImageDataUrl;
-            photoPreview.hidden = false;
+            const imgUrl = event.target.result;
+            uploadedImages.push(imgUrl); // إضافة الصورة للمصفوفة
+
+            // إنشاء صورة مصغرة للمعاينة
+            const imgEl = document.createElement('img');
+            imgEl.src = imgUrl;
+            thumbnailsContainer.appendChild(imgEl);
           };
           reader.readAsDataURL(file);
-        }
+        });
       });
 
       // 2. عند إرسال النموذج (إنشاء المعاينة)
       form.addEventListener('submit', function(e) {
-        e.preventDefault(); // منع إعادة تحميل الصفحة
+        e.preventDefault(); 
 
-        if (!currentImageDataUrl) {
-          alert('الرجاء اختيار صورة أولاً.');
+        if (uploadedImages.length === 0) {
+          alert('الرجاء اختيار صورة واحدة على الأقل.');
           return;
         }
 
         const childName = nameInput.value.trim() || 'البطل';
         resultName.textContent = childName;
 
-        // إنشاء 8 نسخ من الصورة (سيتم تحويلها لأبيض وأسود عبر CSS)
-        let cardsHTML = '<div class="eight-grid">';
-        for (let i = 1; i <= 8; i++) {
-          cardsHTML += `
-            <div class="card">
-              <div class="card-header">نسخة ${i}</div>
-              <div class="img-space">
-                <img src="${currentImageDataUrl}" alt="صورة ${childName} - نسخة ${i}">
+        // إنشاء شبكة 3x3 (9 إطارات)
+        let gridHTML = '<div class="print-grid-3x3">';
+        
+        for (let i = 0; i < 9; i++) {
+          gridHTML += `<div class="print-frame">`;
+          gridHTML += `<span class="frame-number">${i + 1}</span>`;
+          
+          // إذا كانت هناك صورة متاحة لهذا الإطار، ضعها. وإلا اتركه فارغاً.
+          if (i < uploadedImages.length) {
+            gridHTML += `<img src="${uploadedImages[i]}" alt="صورة ${childName} - إطار ${i + 1}">`;
+          } else {
+            gridHTML += `
+              <div class="empty-text">
+                <span>🎨</span>
+                إطار فارغ
               </div>
-            </div>
-          `;
+            `;
+          }
+          
+          gridHTML += `</div>`;
         }
-        cardsHTML += '</div>';
+        
+        gridHTML += '</div>';
 
-        // إدراج الصور في قسم النتائج
-        bookPreview.innerHTML = cardsHTML;
+        // إدراج الشبكة في قسم النتائج
+        bookPreview.innerHTML = gridHTML;
 
         // إخفاء النموذج وإظهار النتائج
         document.getElementById('creator').style.display = 'none';
