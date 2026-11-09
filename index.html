@@ -6,6 +6,53 @@
   <meta name="theme-color" content="#6d4aff">
   <title>حكايتي | اصنع قصة طفلك</title>
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    .eight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .eight-grid .card {
+      background: #f4f2fa;
+      border: 2px dashed #d1c4e9;
+      border-radius: 16px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .eight-grid .card-header {
+      background: #ece4ff;
+      color: #6d4aff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 4px 16px;
+      border-radius: 30px;
+    }
+    .eight-grid .img-space {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #d1c4e9;
+    }
+    
+    /* 🌟 هذا هو السطر السحري الذي يحول الصورة إلى أبيض وأسود */
+    .eight-grid .img-space img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.1); 
+    }
+    
+    @media (max-width: 900px) {
+      .eight-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -101,6 +148,8 @@
         <div class="result-actions"><button id="print-button" class="primary-button">🖨️ طباعة / حفظ PDF</button><button id="edit-button" class="secondary-button">تعديل التفاصيل</button></div>
       </div>
       <p class="preview-disclaimer">هذه معاينة أولية تُنشأ داخل المتصفح بقوالب قصصية ورسمة تلوين من الصورة. لا تمثل بعدُ رسومات ذكاء اصطناعي مخصصة.</p>
+      
+      <!-- سيتم إدراج 8 نسخ الصور هنا -->
       <div id="book-preview" class="book-preview"></div>
     </section>
 
@@ -115,6 +164,84 @@
   </main>
 
   <footer><b>حكايتي – Hikayaty</b><span>كل طفل يستحق أن يكون بطل قصته 💜</span></footer>
-  <script src="script.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('story-form');
+      const photoInput = document.getElementById('child-photo');
+      const photoPreview = document.getElementById('photo-preview');
+      const resultSection = document.getElementById('result');
+      const resultName = document.getElementById('result-name');
+      const bookPreview = document.getElementById('book-preview');
+      const printBtn = document.getElementById('print-button');
+      const editBtn = document.getElementById('edit-button');
+      const nameInput = document.getElementById('child-name');
+
+      let currentImageDataUrl = null;
+
+      // 1. معاينة الصورة الصغيرة عند اختيارها
+      photoInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            currentImageDataUrl = event.target.result;
+            photoPreview.src = currentImageDataUrl;
+            photoPreview.hidden = false;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // 2. عند إرسال النموذج (إنشاء المعاينة)
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // منع إعادة تحميل الصفحة
+
+        if (!currentImageDataUrl) {
+          alert('الرجاء اختيار صورة أولاً.');
+          return;
+        }
+
+        const childName = nameInput.value.trim() || 'البطل';
+        resultName.textContent = childName;
+
+        // إنشاء 8 نسخ من الصورة (سيتم تحويلها لأبيض وأسود عبر CSS)
+        let cardsHTML = '<div class="eight-grid">';
+        for (let i = 1; i <= 8; i++) {
+          cardsHTML += `
+            <div class="card">
+              <div class="card-header">نسخة ${i}</div>
+              <div class="img-space">
+                <img src="${currentImageDataUrl}" alt="صورة ${childName} - نسخة ${i}">
+              </div>
+            </div>
+          `;
+        }
+        cardsHTML += '</div>';
+
+        // إدراج الصور في قسم النتائج
+        bookPreview.innerHTML = cardsHTML;
+
+        // إخفاء النموذج وإظهار النتائج
+        document.getElementById('creator').style.display = 'none';
+        resultSection.hidden = false;
+
+        // التمرير إلى قسم النتائج
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // 3. زر التعديل (العودة للنموذج)
+      editBtn.addEventListener('click', function() {
+        resultSection.hidden = true;
+        document.getElementById('creator').style.display = 'block';
+        document.getElementById('creator').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // 4. زر الطباعة
+      printBtn.addEventListener('click', function() {
+        window.print();
+      });
+    });
+  </script>
 </body>
 </html>
